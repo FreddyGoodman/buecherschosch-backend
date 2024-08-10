@@ -6,21 +6,38 @@ namespace buecherschosch_service.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class BooksController : ControllerBase
+public class BookController : ControllerBase
 {
-    private readonly ILogger<BooksController> _logger;
+    private readonly ILogger<BookController> _logger;
     private readonly BookService _bookService;
 
-    public BooksController(ILogger<BooksController> logger, BookService bookService)
+    public BookController(ILogger<BookController> logger, BookService bookService)
     {
         _logger = logger;
         _bookService = bookService;
     }
 
 
-    [HttpGet(Name = "GetBooksAll")]
-    public async Task<IEnumerable<Book>> GetBooksAll()
+    [HttpGet(Name = "AllBooks")]
+    public ActionResult<IAsyncEnumerable<Book>> AllBooks()
     {
-        return await _bookService.GetBooksAll();
+        return Ok(_bookService.AllBooksAsync());
+    }
+ 
+    [HttpPost(Name = "PostBook")]
+    public async Task<ActionResult<int>> PostBook(Book book)
+    {
+        return Ok(await _bookService.SaveBook(book));
+    }
+
+    [HttpGet("{id}", Name = "BookById")]
+    public async Task<ActionResult<Book>> BookById(int id)
+    {
+        Book? book = await _bookService.BookById(id);
+        if (book is null)
+        {
+            return NotFound();
+        }
+        return Ok(book);
     }
 }

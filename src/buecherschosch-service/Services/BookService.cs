@@ -16,9 +16,21 @@ namespace buecherschosch_service.Services
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Book>> GetBooksAll()
+        public async Task<Book?> BookById(int id)
         {
-            return await _context.Books.ToListAsync();
+            return await _context.Books.FirstOrDefaultAsync(b => b.Id == id);
+        }
+
+        public IAsyncEnumerable<Book> AllBooksAsync()
+        {
+            return _context.Books.AsAsyncEnumerable();
+        }
+
+        public async Task<int> SaveBook(Book book)
+        {
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+            return book.Id;
         }
     }
 }
