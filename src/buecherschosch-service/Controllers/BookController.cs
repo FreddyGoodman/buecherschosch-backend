@@ -17,19 +17,6 @@ public class BookController : ControllerBase
         _bookService = bookService;
     }
 
-
-    [HttpGet(Name = "AllBooks")]
-    public ActionResult<IAsyncEnumerable<Book>> AllBooks()
-    {
-        return Ok(_bookService.AllBooksAsync());
-    }
- 
-    [HttpPost(Name = "PostBook")]
-    public async Task<ActionResult<int>> PostBook(Book book)
-    {
-        return Ok(await _bookService.SaveBook(book));
-    }
-
     [HttpGet("{id}", Name = "BookById")]
     public async Task<ActionResult<Book>> BookById(int id)
     {
@@ -39,5 +26,38 @@ public class BookController : ControllerBase
             return NotFound();
         }
         return Ok(book);
+    }
+
+    [HttpGet("AllBooks")]
+    public ActionResult<IAsyncEnumerable<Book>> AllBooks()
+    {
+        return Ok(_bookService.AllBooksAsync());
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<int>> PostBook(Book book)
+    {
+        return Ok(await _bookService.PostBook(book));
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<ActionResult> PatchBook(int id, Book book)
+    {
+        if (id != book.Id)
+        {
+            return BadRequest();
+        }
+        await _bookService.PostBook(book);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteBook(int id)
+    {
+        int? deleted_id = await _bookService.DeleteBook(id);
+        if (deleted_id is null) {
+            return NotFound();
+        }
+            return NoContent();
     }
 }

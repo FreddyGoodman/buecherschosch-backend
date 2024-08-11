@@ -26,11 +26,30 @@ namespace buecherschosch_service.Services
             return _context.Books.AsAsyncEnumerable();
         }
 
-        public async Task<int> SaveBook(Book book)
+        public async Task<int> PostBook(Book book)
         {
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
             return book.Id;
+        }
+
+        public async Task<int> PatchBook(Book book)
+        {
+            _context.Books.Update(book); // TODO: Research how Update() works
+            await _context.SaveChangesAsync();
+            return book.Id;
+        }
+
+        public async Task<int?> DeleteBook(int id)
+        {
+            Book? book = await BookById(id);
+            if (book is not null)
+            {
+                _context.Books.Remove(book);
+                await _context.SaveChangesAsync();
+                return book.Id;
+            }
+            return null;
         }
     }
 }
