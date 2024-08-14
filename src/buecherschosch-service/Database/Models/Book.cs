@@ -5,6 +5,7 @@ namespace buecherschosch_service.Models
 {
     public class Book
     {
+        // TODO: Add Produktnummer Attribut
         [Key]
         public int Id { get; set; }
         public required string Title { get; set; }
@@ -12,6 +13,7 @@ namespace buecherschosch_service.Models
         public Genre? Genre { get; set; }
         public int? Pages { get; set; }
         public string? Publisher { get; set; }
+        public int? PublicationYear { get; set; }
         public string? Language { get; set; }
         public required string ISBN { get; set; }
         public string? Description { get; set; }
