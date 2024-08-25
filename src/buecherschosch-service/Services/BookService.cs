@@ -1,42 +1,42 @@
 using buecherschosch_service.Database;
-using buecherschosch_service.Models;
+using buecherschosch_service.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace buecherschosch_service.Services
 {
     public class BookService
     {
-        private readonly DatabaseContext _context;
-        private readonly ILogger<BookService> _logger;
+        private readonly DatabaseContext Context;
+        private readonly ILogger<BookService> Logger;
 
-        public BookService(DatabaseContext context,
-            ILogger<BookService> logger)
+        public BookService(DatabaseContext Context,
+            ILogger<BookService> Logger)
         {
-            _context = context;
-            _logger = logger;
+            this.Context = Context;
+            this.Logger = Logger;
         }
 
         public async Task<Book?> BookById(int id)
         {
-            return await _context.Books.FirstOrDefaultAsync(b => b.Id == id);
+            return await Context.Books.FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public IAsyncEnumerable<Book> AllBooksAsync()
         {
-            return _context.Books.AsAsyncEnumerable();
+            return Context.Books.AsAsyncEnumerable();
         }
 
         public async Task<int> PostBook(Book book)
         {
-            _context.Books.Add(book);
-            await _context.SaveChangesAsync();
+            Context.Books.Add(book);
+            await Context.SaveChangesAsync();
             return book.Id;
         }
 
         public async Task<int> PatchBook(Book book)
         {
-            _context.Books.Update(book); // TODO: Research how Update() works
-            await _context.SaveChangesAsync();
+            Context.Books.Update(book); // TODO: Research how Update() works
+            await Context.SaveChangesAsync();
             return book.Id;
         }
 
@@ -45,8 +45,8 @@ namespace buecherschosch_service.Services
             Book? book = await BookById(id);
             if (book is not null)
             {
-                _context.Books.Remove(book);
-                await _context.SaveChangesAsync();
+                Context.Books.Remove(book);
+                await Context.SaveChangesAsync();
                 return book.Id;
             }
             return null;

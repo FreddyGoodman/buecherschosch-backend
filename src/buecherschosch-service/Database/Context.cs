@@ -1,4 +1,4 @@
-using buecherschosch_service.Models;
+using buecherschosch_service.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace buecherschosch_service.Database
@@ -6,6 +6,9 @@ namespace buecherschosch_service.Database
     public class DatabaseContext : DbContext
     {
         public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
 
         public string DbPath { get; private set; }

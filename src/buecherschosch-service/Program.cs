@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddScoped<BookService>();
+builder.Services.AddScoped<MetadataService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -16,7 +17,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder => 
     {
-        builder.WithOrigins("http://bhr24.sytes.net:4200")
+        builder.AllowAnyOrigin()
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
