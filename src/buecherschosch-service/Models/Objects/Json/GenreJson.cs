@@ -1,6 +1,6 @@
 using buecherschosch_service.Enums;
 
-namespace buecherschosch_service.Models.Objects
+namespace buecherschosch_service.Models
 {
     public class GenreJson
     {

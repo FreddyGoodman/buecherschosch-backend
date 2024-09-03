@@ -1,4 +1,6 @@
 using buecherschosch_service.Database.Models;
+using buecherschosch_service.Enums;
+using buecherschosch_service.Models;
 using buecherschosch_service.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,12 +39,12 @@ namespace buecherschosch_service.Controllers
         }
 
         [HttpGet("AllLanguages")]
-        public ActionResult<IEnumerable<string>> AllLanguages()
+        public ActionResult<IEnumerable<LanguageJson>> AllLanguages()
         {
             return Ok(MetadataService.AllLanguages());
         }
 
-        /* [HttpGet("CreateGenres")]
+        [HttpGet("CreateGenres")]
         public async Task<ActionResult> CreateGenres()
         {
             List<GenreType> fiction = [GenreType.Crime, GenreType.Thriller, GenreType.ScienceFiction, GenreType.Fantasy, GenreType.Romance, GenreType.Horror, GenreType.Adventure, GenreType.HistoricNovel];
@@ -77,6 +79,6 @@ namespace buecherschosch_service.Controllers
             }
 
             return Ok();
-        } */
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using buecherschosch_service.Database;
 
@@ -10,9 +11,11 @@ using buecherschosch_service.Database;
 namespace buecherschosch_service.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240902184448_ItemBookExtension")]
+    partial class ItemBookExtension
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
@@ -63,6 +66,10 @@ namespace buecherschosch_service.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ItemId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("Language")
                         .HasColumnType("INTEGER");
 
@@ -77,10 +84,6 @@ namespace buecherschosch_service.Migrations
 
                     b.Property<int?>("PublisherId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Sku")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()

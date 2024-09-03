@@ -3,11 +3,8 @@ using buecherschosch_service.Enums;
 
 namespace buecherschosch_service.Database.Models
 {
-    public class Book
+    public class Book : Item
     {
-        // TODO: Add Produktnummer Attribut
-        [Key]
-        public int Id { get; set; }
         public required string Title { get; set; }
         public Author? Author { get; set; }
         public Genre? Genre { get; set; }
@@ -18,5 +15,11 @@ namespace buecherschosch_service.Database.Models
         public required string ISBN { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
+
+        public Book(decimal Price, decimal Discount, string Sku, string Title, string ISBN) : base(Price, Discount, Sku)
+        {
+            this.Title = Title;
+            this.ISBN = ISBN;
+        }
     }
 }

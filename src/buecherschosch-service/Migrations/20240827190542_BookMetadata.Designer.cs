@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using buecherschosch_service.Database;
 
@@ -10,9 +11,11 @@ using buecherschosch_service.Database;
 namespace buecherschosch_service.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240827190542_BookMetadata")]
+    partial class BookMetadata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
@@ -50,9 +53,6 @@ namespace buecherschosch_service.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("TEXT");
-
                     b.Property<int?>("GenreId")
                         .HasColumnType("INTEGER");
 
@@ -69,18 +69,11 @@ namespace buecherschosch_service.Migrations
                     b.Property<int?>("Pages")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
-
                     b.Property<int?>("PublicationYear")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("PublisherId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Sku")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()

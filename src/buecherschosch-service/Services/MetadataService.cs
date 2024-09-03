@@ -1,7 +1,7 @@
 using buecherschosch_service.Database;
 using buecherschosch_service.Enums;
 using buecherschosch_service.Database.Models;
-using buecherschosch_service.Models.Objects;
+using buecherschosch_service.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace buecherschosch_service.Services
@@ -35,9 +35,9 @@ namespace buecherschosch_service.Services
                 .AsAsyncEnumerable();
         }
 
-        public IEnumerable<string> AllLanguages()
+        public IEnumerable<LanguageJson> AllLanguages()
         {
-            return Enum.GetNames(typeof(Language));
+            return Enum.GetValues(typeof(Language)).Cast<Language>().Select(l => new LanguageJson(l));
         }
 
         public async Task<int> PostAuthor(Author author)

@@ -65,8 +65,8 @@ namespace buecherschosch_service.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    GenreType = table.Column<int>(type: "INTEGER", nullable: false),
-                    Category = table.Column<int>(type: "INTEGER", nullable: false)
+                    genreType = table.Column<int>(type: "INTEGER", nullable: false),
+                    category = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

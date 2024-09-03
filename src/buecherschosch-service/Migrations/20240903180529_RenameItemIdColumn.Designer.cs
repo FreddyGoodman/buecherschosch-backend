@@ -11,8 +11,8 @@ using buecherschosch_service.Database;
 namespace buecherschosch_service.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240825135326_BookMetadata")]
-    partial class BookMetadata
+    [Migration("20240903180529_RenameItemIdColumn")]
+    partial class RenameItemIdColumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace buecherschosch_service.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
 
-            modelBuilder.Entity("buecherschosch_service.Models.Author", b =>
+            modelBuilder.Entity("buecherschosch_service.Database.Models.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace buecherschosch_service.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("buecherschosch_service.Models.Book", b =>
+            modelBuilder.Entity("buecherschosch_service.Database.Models.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,6 +51,9 @@ namespace buecherschosch_service.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Discount")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("GenreId")
@@ -69,11 +72,18 @@ namespace buecherschosch_service.Migrations
                     b.Property<int?>("Pages")
                         .HasColumnType("INTEGER");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("PublicationYear")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("PublisherId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Sku")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -90,16 +100,16 @@ namespace buecherschosch_service.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("buecherschosch_service.Models.Genre", b =>
+            modelBuilder.Entity("buecherschosch_service.Database.Models.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Category")
+                    b.Property<int>("category")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("GenreType")
+                    b.Property<int>("genreType")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -107,7 +117,7 @@ namespace buecherschosch_service.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("buecherschosch_service.Models.Publisher", b =>
+            modelBuilder.Entity("buecherschosch_service.Database.Models.Publisher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,17 +138,17 @@ namespace buecherschosch_service.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("buecherschosch_service.Models.Book", b =>
+            modelBuilder.Entity("buecherschosch_service.Database.Models.Book", b =>
                 {
-                    b.HasOne("buecherschosch_service.Models.Author", "Author")
+                    b.HasOne("buecherschosch_service.Database.Models.Author", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("buecherschosch_service.Models.Genre", "Genre")
+                    b.HasOne("buecherschosch_service.Database.Models.Genre", "Genre")
                         .WithMany()
                         .HasForeignKey("GenreId");
 
-                    b.HasOne("buecherschosch_service.Models.Publisher", "Publisher")
+                    b.HasOne("buecherschosch_service.Database.Models.Publisher", "Publisher")
                         .WithMany()
                         .HasForeignKey("PublisherId");
 

@@ -37,7 +37,12 @@ namespace buecherschosch_service.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> PostBook(Book book)
         {
-            return Ok(await BookService.PostBook(book));
+            int response = await BookService.PostBook(book);
+            if (response == -1)
+            {
+                return BadRequest();
+            }
+            return Ok(response);
         }
 
         [HttpPatch("{id}")]
